@@ -1,4 +1,4 @@
-## What's MySplitter? [[中文]](/index_zh)
+## What's MySplitter? [[中文]](/index_zh) [[Github]](https://github.com/BerryWang1996/MySplitter)
 
 MySplitter is a lightweight read / write separation, multiple data sources, high availability, load balancing database connection middleware.
 
