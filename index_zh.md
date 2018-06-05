@@ -53,7 +53,7 @@ compile group: 'com.mysplitter', name: 'mysplitter', version: '1.0.0'
 
 ### 2.设置数据源
 
-使用com.mysplitter.MySplitterDataSource获取连接、管理多个数据源。
+使用`com.mysplitter.MySplitterDataSource`获取连接、管理多个数据源。
 
 ### 3.创建配置文件
 
