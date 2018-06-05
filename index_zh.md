@@ -1,4 +1,4 @@
-## MySplitter 是什么？[English](/index)
+## MySplitter 是什么？ [[English]](/index)
 
 MySplitter 是轻量级的读/写分离，多数据源，高可用性，负载均衡数据库连接中间件。
 
@@ -27,7 +27,7 @@ mysplitter:
           configuration:
             driverClassName: oracle.jdbc.driver.OracleDriver
             jdbcUrl: jdbc:oracle:thin:@//localhost:1521/orcl 
-            user: scott
+            username: scott
             password: tiger
 ```
 
