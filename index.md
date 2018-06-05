@@ -1,37 +1,66 @@
-## Welcome to GitHub Pages
+## What's MySplitter? [[中文]](/index_zh)
 
-You can use the [editor on GitHub](https://github.com/BerryWang1996/berrywang1996.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+MySplitter is a lightweight read / write separation, multiple data sources, high availability, load balancing database connection middleware.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+When you need a program to connect two or more databases or even different types of databases; the database is configured for read-write separation, but the read operation has multiple data sources and cannot be load-balanced; hopefully the data source is not available when there is a reminder, And can switch to available data sources, let MySplitter help you!
 
-### Markdown
+With simple configuration, MySplitter can manage data sources and you can easily use multiple data sources.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
+Configuration quick preview：
 ```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+mysplitter:
+  databasesRoutingHandler: com.xxx.your.databasesRoutingHandler
+  databases:
+    database-a:
+      integrates:
+        database-a-integrate-node:
+          dataSourceClass: com.alibaba.druid.pool.DruidDataSource
+          configuration:
+            driverClassName: com.mysql.jdbc.Driver
+            url: jdbc:mysql://localhost:3306/test
+            username: root
+            password: admin
+    database-b:
+      integrates:
+        database-b-integrate-node:
+          dataSourceClass: com.zaxxer.hikari.HikariDataSource
+          configuration:
+            driverClassName: oracle.jdbc.driver.OracleDriver
+            jdbcUrl: jdbc:oracle:thin:@//localhost:1521/orcl 
+            username: scott
+            password: tiger
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+## Start
 
-### Jekyll Themes
+### 1.Add dependency
+
+Maven:
+
+```markdown
+<dependency>
+    <groupId>com.mysplitter</groupId>
+    <artifactId>mysplitter</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+Gradle:
+
+```markdown
+compile group: 'com.mysplitter', name: 'mysplitter', version: '1.0.0'
+```
+
+### 2.Set data source
+
+Use `com.mysplitter.MySplitterDataSource` to get connections and manage multiple data sources.
+
+### 3.Create a configuration file
+
+Create a configuration file named mysplitter.yml in the project's resources directory. Make sure how many databases you needed. Do you need read/write separation, high availability, and load balancing? Then refer to the following documents to configure.
+
+## Document
 
 Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/BerryWang1996/berrywang1996.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
 
 Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
