@@ -1,6 +1,6 @@
 ## What's MySplitter? 
 
-[[中文]](/index_zh) [[Github]](https://github.com/BerryWang1996/MySplitter)
+[[中文]](/index_zh) [[Github]](https://github.com/BerryWang1996/MySplitter) [[Apache License 2.0]](https://github.com/BerryWang1996/MySplitter/blob/master/LICENSE)
 
 MySplitter is a lightweight read / write separation, multiple data sources, high availability, load balancing database connection middleware.
 
