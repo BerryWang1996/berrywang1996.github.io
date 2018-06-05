@@ -1,4 +1,6 @@
-## MySplitter 是什么？ [[English]](/index) [[Github]](https://github.com/BerryWang1996/MySplitter)
+## MySplitter 是什么？ 
+
+[[English]](/index) [[Github]](https://github.com/BerryWang1996/MySplitter) [[Apache License 2.0]](https://github.com/BerryWang1996/MySplitter/blob/master/LICENSE)
 
 MySplitter 是轻量级的读/写分离，多数据源，高可用性，负载均衡数据库连接中间件。
 
