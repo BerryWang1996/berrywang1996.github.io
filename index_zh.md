@@ -39,15 +39,15 @@ mysplitter:
 
 Maven:
 
-```markdown
 {% highlight xml %}
+```markdown
 <dependency>
     <groupId>com.mysplitter</groupId>
     <artifactId>mysplitter</artifactId>
     <version>1.0.0</version>
 </dependency>
-{% endhighlight %}
 ```
+{% endhighlight %}
 
 Gradle:
 
