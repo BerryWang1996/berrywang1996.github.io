@@ -1,4 +1,4 @@
 theme: jekyll-theme-cayman
 title: MySplitter
 description: Lightweight read / write separation, multiple data sources, high availability, load balancing database connection middleware.
-show_downloads: true
+# show_downloads: true
