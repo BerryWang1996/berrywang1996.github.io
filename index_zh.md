@@ -55,11 +55,11 @@ compile group: 'com.mysplitter', name: 'mysplitter', version: '1.0.0'
 
 ### 2.设置数据源
 
-使用`com.mysplitter.MySplitterDataSource`获取连接、管理多个数据源。
+使用 `com.mysplitter.MySplitterDataSource` 获取连接、管理多个数据源。
 
 ### 3.创建配置文件
 
-在项目的resources目录创建文件名为mysplitter.yml的配置文件，明确你需要几个数据库，是否需要读写分离、高可用和负载均衡。并参考下面的文档进行配置。
+在项目的 `resources` 目录创建文件名为 `mysplitter.yml` 的配置文件，明确你需要几个数据库，是否需要读写分离、高可用和负载均衡。并参考下面的文档进行配置。
 
 ## 文档
 
