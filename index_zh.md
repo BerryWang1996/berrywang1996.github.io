@@ -39,7 +39,6 @@ mysplitter:
 
 Maven:
 
-{% highlight xml %}
 ```markdown
 <dependency>
     <groupId>com.mysplitter</groupId>
@@ -47,7 +46,6 @@ Maven:
     <version>1.0.0</version>
 </dependency>
 ```
-{% endhighlight %}
 
 Gradle:
 
