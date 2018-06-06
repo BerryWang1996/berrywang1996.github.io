@@ -59,7 +59,7 @@ Use `com.mysplitter.MySplitterDataSource` to get connections and manage multiple
 
 ### 3.Create a configuration file
 
-Create a configuration file named mysplitter.yml in the project's resources directory. Make sure how many databases you needed. Do you need read/write separation, high availability, and load balancing? Then refer to the following documents to configure.
+Create a configuration file named `mysplitter.yml` in the project's `resources` directory. Make sure how many databases you needed. Do you need read/write separation, high availability, and load balancing? Then refer to the following documents to configure.
 
 ## Document
 
