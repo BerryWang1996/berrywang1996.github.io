@@ -40,10 +40,11 @@ mysplitter:
 Maven:
 
 ```markdown
+<!-- It is developing now -->
 <dependency>
     <groupId>com.mysplitter</groupId>
     <artifactId>mysplitter</artifactId>
-    <version>1.0.0</version>
+    <version>0.9.0-SNAPSHOT</version>
 </dependency>
 ```
 
