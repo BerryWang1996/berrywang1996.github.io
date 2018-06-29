@@ -8,22 +8,20 @@ MySplitter 是轻量级的读/写分离，多数据源，高可用性，负载�
 
 当你需要一个程序连接2个或者更多的数据库，甚至是不同类型的数据库；数据库配置了读写分离，但是读操作有多个数据源且无法负载均衡；希望数据源不可使用时有提醒，并且可以切换到可用的数据源，那就让 MySplitter 来帮助你吧！
 
-### 特性
+### 当前特性
 
-* 当前特性：
+* 支持多数据源（不同类型数据库、不同类型连接池）
+* 支持多数据源事务
+* 支持多数据源负载均衡（轮询、随机权重）
 
-  * 支持多数据源（不同类型数据库、不同类型连接池）
-  * 支持多数据源事务
-  * 支持多数据源负载均衡（轮询、随机权重）
+### 将要支持的特性：
 
-* 将要支持的特性：
-
-  * SQL过滤器
-  * 多数据源高可用（动态切换）
-  * 数据源异常提醒
-  * 多数据源状态监控
-  * 数据源密码加密
-  * Spring Boot配置文件配置
+* SQL过滤器
+* 多数据源高可用（动态切换）
+* 数据源异常提醒
+* 多数据源状态监控
+* 数据源密码加密
+* Spring Boot配置文件配置
 
 ### 配置文件快速预览：
 
@@ -99,9 +97,9 @@ MySplitter 默认读取 `mysplitter.yml` 配置文件。请确该文件在项目
 ```markdown
 mysplitter:
   databases:
-    database-a: #可以自定义数据库的名称
+    database-a: # 可以自定义数据库的名称
       readers:
-        reader-read-slave-1: #可以自定义读数据源节点的名称
+        reader-read-slave-1: # 可以自定义读数据源节点的名称
           dataSourceClass: com.alibaba.druid.pool.DruidDataSource
           configuration: # 读数据源的配置信息
             url: jdbc:mysql://localhost:3306/user
@@ -109,7 +107,7 @@ mysplitter:
             password: admin
             driverClassName: com.mysql.jdbc.Driver
       writers:
-        writer-write-master-1: #可以自定义写数据源节点的名称
+        writer-write-master-1: # 可以自定义写数据源节点的名称
           dataSourceClass: com.alibaba.druid.pool.DruidDataSource
           configuration: # 写数据源的配置信息
             url: jdbc:mysql://localhost:3306/user
@@ -161,24 +159,24 @@ mysplitter:
   common:
     dataSourceClass: com.zaxxer.hikari.HikariDataSource
   databases:
-    database-a: #可以自定义数据库的名称，注意在数据源路由实现类中进行对应
-      readers: #代表子节点都是读数据源
-        reader-read-slave-1: #可以自定义数据源节点名称
+    database-a: # 可以自定义数据库的名称，注意在数据源路由实现类中进行对应
+      readers: # 代表子节点都是读数据源
+        reader-read-slave-1: # 可以自定义数据源节点名称
           configuration:
             url: jdbc:mysql://localhost:3306/user
             username: root
             password: admin
             driverClassName: com.mysql.jdbc.Driver
-      writers: #代表子节点都是写数据源
-        writer-write-master-1: #可以自定义数据源节点名称
-          configuration: # dataSource configuration
+      writers: # 代表子节点都是写数据源
+        writer-write-master-1: # 可以自定义数据源节点名称
+          configuration:
             url: jdbc:mysql://localhost:3306/user
             username: root
             password: admin
             driverClassName: com.mysql.jdbc.Driver
-    database-b: #可以自定义数据库的名称，注意在数据源路由实现类中进行对应
-      integrates: #代表子节点是不进行读写分离的数据源
-        integrate-slave-1: #可以自定义数据源节点名称
+    database-b: # 可以自定义数据库的名称，注意在数据源路由实现类中进行对应
+      integrates: # 代表子节点是不进行读写分离的数据源
+        integrate-slave-1: # 可以自定义数据源节点名称
           configuration:
             jdbcUrl: jdbc:mysql://localhost:3306/dept
             username: root
@@ -206,7 +204,7 @@ public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHand
     
     /**
      * @param sql 要执行的sql语句
-     * @return 要执行的sql语句，如果不需要重写，直接返回sql即可
+     * @return 要执行的sql语句，如果不需要重写，直接返回"sql"即可
      */
     @Override
     public String rewriteSql(String sql) {
