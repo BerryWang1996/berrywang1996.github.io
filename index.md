@@ -59,7 +59,6 @@ mysplitter:
 Maven:
 
 ```markdown
-<!-- It is developing now -->
 <dependency>
     <groupId>com.mysplitter</groupId>
     <artifactId>mysplitter</artifactId>
@@ -297,7 +296,7 @@ Configuration file example:
 
 ### 7.Configure high available
 
-TODO
+// TODO
 
 ### 8.Configure sql filter (unsupported now)
 
@@ -307,4 +306,4 @@ TODO
 
 ## FAQ
 
-TODO
+// TODO
