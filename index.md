@@ -44,14 +44,14 @@ Maven:
 <dependency>
     <groupId>com.mysplitter</groupId>
     <artifactId>mysplitter</artifactId>
-    <version>0.9.0-SNAPSHOT</version>
+    <version>0.9.0</version>
 </dependency>
 ```
 
 Gradle:
 
 ```markdown
-compile group: 'com.mysplitter', name: 'mysplitter', version: '1.0.0'
+compile group: 'com.mysplitter', name: 'mysplitter', version: '0.9.0'
 ```
 
 ### 2.Set data source
