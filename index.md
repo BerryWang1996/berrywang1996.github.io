@@ -62,8 +62,30 @@ Use `com.mysplitter.MySplitterDataSource` to get connections and manage multiple
 
 Create a configuration file named `mysplitter.yml` in the project's `resources` directory. Make sure how many databases you needed. Do you need read/write separation, high availability, and load balancing? Then refer to the following documents to configure.
 
-## Document
+## Configuration guide
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/BerryWang1996/berrywang1996.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+### 1.Preparatory work
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+MySplitter 默认读取 `mysplitter.yml` 配置文件。请确该文件在项目的 `resources` 目录下。（暂不支持Spring Boot配置文件配置以及自定义配置文件名称）
+
+### 2.Configure multiple data sources
+
+### 3.Configure read / write separation
+
+### 4.Configure your own read and write parser
+
+### 5.Configure multiple databases
+
+### 6.Configure multiple databases routing handler
+
+### 7.Configure load balance
+
+### 8.Configure high available
+
+### 9.Configure sql filter (unsupported now)
+
+### 10.Configure data sources monitor (unsupported now)
+
+### 11.Encrypt data sources password (unsupported now)
+
+## FAQ

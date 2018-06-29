@@ -62,7 +62,33 @@ compile group: 'com.mysplitter', name: 'mysplitter', version: '0.9.0'
 
 在项目的 `resources` 目录创建文件名为 `mysplitter.yml` 的配置文件，明确你需要几个数据库，是否需要读写分离、高可用和负载均衡。并参考下面的文档进行配置。
 
-## 文档
+## 配置向导
+
+### 1.准备工作
+
+MySplitter 默认读取 `mysplitter.yml` 配置文件。请确该文件在项目的 `resources` 目录下。（暂不支持Spring Boot配置文件配置以及自定义配置文件名称）
+
+### 2.配置多数据源
+
+### 3.配置读写分离
+
+### 4.配置自定义读写解析器
+
+### 5.配置多数据库
+
+### 6.配置多数据路由处理器
+
+### 7.配置负载均衡
+
+### 8.配置高可用
+
+### 9.配置过滤器（暂不支持）
+
+### 10.多数据源状态监控（暂不支持）
+
+### 11.数据源密码加密（暂不支持）
+
+## 已知问题
 
 Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/BerryWang1996/berrywang1996.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
