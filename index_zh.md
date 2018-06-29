@@ -87,8 +87,7 @@ MySplitter 默认读取 `mysplitter.yml` 配置文件。请确该文件在项目
 
 ### 2.统一配置
 
-待完善
-
+// TODO
 
 ### 3.配置多数据源/读写分离
 
@@ -296,7 +295,7 @@ public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHand
 
 ### 7.配置高可用
 
-待完善
+// TODO
 
 ### 8.配置过滤器（暂不支持）
 
@@ -306,4 +305,4 @@ public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHand
 
 ## 已知问题
 
-待完善
+// TODO
