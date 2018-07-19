@@ -302,7 +302,44 @@ Configuration file example:
 
 ### 9.Configure data sources monitor (unsupported now)
 
-### 10.Encrypt data sources password (unsupported now)
+### 10.Encrypt data sources password
+
+1. Execute the encryption command to obtain the private key, public key, and encrypted password. Encryption directly uses the encryption algorithm of `com.alibaba.druid` and the source code.
+
+    ```markdown
+    java -cp mysplitter-0.9.1.jar com.mysplitter.util.SecurityUtil password [password...]
+    ```
+
+2. Enable password encryption `enablePasswordEncryption: true` in the configuration file. Then modify and add `password` and `publicKey` in the configuration file.
+
+   Here is an example taken with the configuration in the quick preview of the configuration file in the document:
+   
+   ```markdown
+   mysplitter:
+     enablePasswordEncryption: true
+     databasesRoutingHandler: com.xxx.your.databasesRoutingHandler
+     databases:
+       database-a:
+         integrates:
+           database-a-integrate-node:
+             dataSourceClass: com.alibaba.druid.pool.DruidDataSource
+             configuration:
+               driverClassName: com.mysql.jdbc.Driver
+               url: jdbc:mysql://localhost:3306/test
+               username: root
+               password: M1jnmaflpqw/FoZ4mSdD2e7pvQPiBWxJrEa3xvFjRb5ZCIkH5lCbfUQlbDBg58YJAhfxo8dd3KiYlygZVa2Ecw==
+               publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKZ+PehB68CplrpZJ0qyyp5NV40HAKVlc0zf5LMD7luVd9buSvLqgmJKnT/QhRYaFDXAIaXRCKxd0TUf1ZhEafECAwEAAQ==
+       database-b:
+         integrates:
+           database-b-integrate-node:
+             dataSourceClass: com.zaxxer.hikari.HikariDataSource
+             configuration:
+               driverClassName: oracle.jdbc.driver.OracleDriver
+               jdbcUrl: jdbc:oracle:thin:@//localhost:1521/orcl 
+               username: scott
+               password: rJuZ5fak54A7n4iPFfRIP2TN8xPx8nEJGfsLQzhKF6uBnDr0bfbWL8yRIeqv8h2Jbf/YuJeQnR7oUUIEcOPklg==
+               publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALaSX/yimY5Hzqd8InW2ETrodqcVTVfiGATESTFGDKNbKfFjJFLzzFJqvwg+ZmOhXjj2tVyb5j7qz4We94zIaH8CAwEAAQ==
+   ```
 
 ## FAQ
 

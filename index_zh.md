@@ -301,8 +301,45 @@ public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHand
 
 ### 9.多数据源状态监控（暂不支持）
 
-### 10.数据源密码加密（暂不支持）
+### 10.数据源密码加密
 
-## 已知问题
+1. 执行加密命令获取私钥、公钥和加密后的密码。加密直接使用了 `com.alibaba.druid` 的加密算法以及源码。
+
+    ```markdown
+    java -cp mysplitter-0.9.1.jar com.mysplitter.util.SecurityUtil password [password...]
+    ```
+
+2. 在配置文件中启用密码加密 `enablePasswordEncryption: true`，然后添加并修改数据源的配置中的 `password` 和 `publicKey`。
+
+   以文档中配置文件快速预览中的配置进行示例：
+   
+   ```markdown
+   mysplitter:
+     enablePasswordEncryption: true
+     databasesRoutingHandler: com.xxx.your.databasesRoutingHandler
+     databases:
+       database-a:
+         integrates:
+           database-a-integrate-node:
+             dataSourceClass: com.alibaba.druid.pool.DruidDataSource
+             configuration:
+               driverClassName: com.mysql.jdbc.Driver
+               url: jdbc:mysql://localhost:3306/test
+               username: root
+               password: M1jnmaflpqw/FoZ4mSdD2e7pvQPiBWxJrEa3xvFjRb5ZCIkH5lCbfUQlbDBg58YJAhfxo8dd3KiYlygZVa2Ecw==
+               publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKZ+PehB68CplrpZJ0qyyp5NV40HAKVlc0zf5LMD7luVd9buSvLqgmJKnT/QhRYaFDXAIaXRCKxd0TUf1ZhEafECAwEAAQ==
+       database-b:
+         integrates:
+           database-b-integrate-node:
+             dataSourceClass: com.zaxxer.hikari.HikariDataSource
+             configuration:
+               driverClassName: oracle.jdbc.driver.OracleDriver
+               jdbcUrl: jdbc:oracle:thin:@//localhost:1521/orcl 
+               username: scott
+               password: rJuZ5fak54A7n4iPFfRIP2TN8xPx8nEJGfsLQzhKF6uBnDr0bfbWL8yRIeqv8h2Jbf/YuJeQnR7oUUIEcOPklg==
+               publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALaSX/yimY5Hzqd8InW2ETrodqcVTVfiGATESTFGDKNbKfFjJFLzzFJqvwg+ZmOhXjj2tVyb5j7qz4We94zIaH8CAwEAAQ==
+   ```
+
+## 常见问题解答
 
 // TODO
