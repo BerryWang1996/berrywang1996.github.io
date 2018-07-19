@@ -11,9 +11,10 @@ When you need a program to connect two or more databases or even different types
 
 ### Feature
 
-* Support multiple data sources (different types of databases, different types of connection pools)
-* Support for multiple data source transactions
-* Support multi-data source load balancing (polling, random weight)
+* Multiple data sources (different types of databases, different types of connection pools)
+* Multiple data source transactions
+* Multi-data source load balancing (polling, random weight)
+* Data source password encryption
 
 ### Future feature
 
@@ -21,7 +22,6 @@ When you need a program to connect two or more databases or even different types
 * Multiple data sources are highly available (dynamic switching)
 * Data source exception reminder
 * Multiple data source status monitoring
-* Data source password encryption
 * Spring Boot configuration file configuration
 
 ### Configuration quick preview：
