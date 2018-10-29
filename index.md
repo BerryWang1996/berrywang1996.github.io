@@ -270,14 +270,14 @@ When read and write is separated, there are multiple read/write nodes, and you c
               enabled: false
           readers:
             reader-read-slave-1:
-              weight: 1 # The weight of this node is 1
+              weight: 1 # The weight of this node is 1，The probability of accessing this node at this time is 25%
               configuration:
                 url: jdbc:mysql://localhost:3306/user
                 username: root
                 password: admin
                 driverClassName: com.mysql.jdbc.Driver
             reader-read-slave-2:
-              weight: 2 # The weight of this node is 3，The probability of accessing the first node at this time is 20%, and the probability of the second node is 80%
+              weight: 3 # The weight of this node is 3，The probability of accessing this node at this time is 75%
               configuration:
                 url: jdbc:mysql://localhost:3307/user
                 username: root1

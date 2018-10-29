@@ -269,14 +269,14 @@ public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHand
               enabled: false
           readers:
             reader-read-slave-1:
-              weight: 1 #此节点的权重是1
+              weight: 1 #此节点的权重是1，此时访问当前节点的概率为25%
               configuration:
                 url: jdbc:mysql://localhost:3306/user
                 username: root
                 password: admin
                 driverClassName: com.mysql.jdbc.Driver
             reader-read-slave-2:
-              weight: 2 #此节点的权重是3，此时访问第一个节点的概率为20%，第二个节点的概率为80%
+              weight: 3 #此节点的权重是3，此时访问当前节点的概率为75%
               configuration:
                 url: jdbc:mysql://localhost:3307/user
                 username: root1
