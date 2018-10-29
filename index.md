@@ -15,14 +15,16 @@ When you need a program to connect two or more databases or even different types
 * Multiple data source transactions
 * Multi-data source load balancing (polling, random weight)
 * Data source password encryption
-
-### Future feature
-
-* SQL filter
 * Multiple data sources are highly available (dynamic switching)
 * Data source exception reminder
-* Multiple data source status monitoring
-* Spring Boot configuration file configuration
+* Data source status monitoring
+* Configure the file name that needs to be read in Spring Boot configuration file
+
+### Development plan
+
+* SQL filter
+* XML format configuration file
+* Configure all configuration in Spring Boot configuration file
 
 ### Configuration quick preview：
 
@@ -62,14 +64,14 @@ Maven:
 <dependency>
     <groupId>com.mysplitter</groupId>
     <artifactId>mysplitter</artifactId>
-    <version>0.9.0</version>
+    <version>0.9.1</version>
 </dependency>
 ```
 
 Gradle:
 
 ```markdown
-compile group: 'com.mysplitter', name: 'mysplitter', version: '0.9.0'
+compile group: 'com.mysplitter', name: 'mysplitter', version: '0.9.1'
 ```
 
 ### 2.Set data source
@@ -294,15 +296,84 @@ Configuration file example:
                 driverClassName: com.mysql.jdbc.Driver
     ```
 
-### 7.Configure high available
+### 7.High available data source
 
-// TODO
+If the data source is not available, it is automatically removed from the data source node. The default is 30 seconds to retry connection until the data source is available.
+
+If you need to configure the retry interval, set the `failTimeout` parameter. Refer to the following configuration:
+
+1. define in "common":
+
+    ```markdown
+    mysplitter:
+      readAndWriteParser: com.mysplitter.demo.datasource.ReadAndWriteParser
+      illAlertHandler: com.mysplitter.demo.datasource.DataSourceIllAlertHandler
+      common:
+        dataSourceClass: com.alibaba.druid.pool.DruidDataSource
+        loadBalance:
+          read:
+            enabled: true
+            strategy: polling
+            failTimeout: 1m
+          write:
+            enabled: false
+    ```
+    
+2. define in "database node":
+
+    ```markdown
+    mysplitter:
+      enablePasswordEncryption: true
+      readAndWriteParser: com.mysplitter.demo.datasource.ReadAndWriteParser
+      illAlertHandler: com.mysplitter.demo.datasource.DataSourceIllAlertHandler
+      common:
+        dataSourceClass: com.alibaba.druid.pool.DruidDataSource
+      databases:
+        database-a:
+          loadBalance:
+            read:
+              enabled: true
+              strategy: polling
+              failTimeout: 1m
+            write:
+              enabled: false
+          readers:
+            reader-read-slave-1:
+              configuration:
+                url: jdbc:mysql://localhost:3306/user?useSSL=false
+                username: root
+                password: UtDAi2eqmspIDSHqpoGQU5JC9kpfFeZPBhUxkPnWtNwsTEYFkTh/QAa5wyU7LDufruSYN+0WCUTE6F5X++5tDA==
+                publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKVbfAja9r0HF29S/ph/T+f6UbeNxn4giAzgxweKABRsJ2sI/MNhV8x7jTsCM15xDHKM4G++QqC1Bx0tdgG/BI0CAwEAAQ==
+                driverClassName: com.mysql.jdbc.Driver
+                maxWait: 1000
+            reader-read-slave-2:
+              configuration:
+                url: jdbc:mysql://localhost:3306/user?useSSL=false
+                username: root
+                password: Oe7fcF2TLqytAlvy37C/IWfBhNhBFXmMGceE6GRxYyjJXh3TUdmq8EvebiFb0pB1hF9aH7thnnkthFiy5n3M8Q==
+                publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMWmL+AzrbsKwfrtP/a/aQpQplNsoySxCHUQb0aJw2t8iemRtbxtxJhXmQqPMlAZdYppyK0wB48HTArD2am3/NMCAwEAAQ==
+                driverClassName: com.mysql.jdbc.Driver
+                maxWait: 1000
+          writers:
+            writer-write-master-1:
+              configuration:
+                url: jdbc:mysql://localhost:3306/user?useSSL=false
+                username: root
+                password: MAtsEynrB5qJp6oDfmae2Z2Hx1lqPwFDNMKnwUr/P7+HvYy8ZXIm6DKI5VWfLO34Bjcdy+Jsr4+/N++Bxx0Y5w==
+                publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIvm9Ez/X3VOLUGNfATqtyQsK5+TOR66uK6MvHdX89N1K8S3l3bNVB2BKiPZ1hDxZNZfYtbQNUUHKjDyV+eUtq8CAwEAAQ==
+                driverClassName: com.mysql.jdbc.Driver
+                maxWait: 1000
+    ```
 
 ### 8.Configure sql filter (unsupported now)
 
-### 9.Configure data sources monitor (unsupported now)
+### 9.Configure data sources monitor
 
-### 10.Encrypt data sources password
+You can get the status of all current data sources by calling the `getStatus` method of `com.mysplitter.MySplitterDataSource`.
+
+### 10.Configure data source exception alerter
+
+### 11.Encrypt data sources password
 
 1. Execute the encryption command to obtain the private key, public key, and encrypted password. Encryption directly uses the encryption algorithm of `com.alibaba.druid` and the source code.
 

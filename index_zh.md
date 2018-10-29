@@ -14,14 +14,16 @@ MySplitter 是轻量级的读/写分离，多数据源，高可用性，负载�
 * 多数据源事务
 * 多数据源负载均衡（轮询、随机权重）
 * 数据源密码加密
-
-### 将要支持的特性：
-
-* SQL过滤器
 * 多数据源高可用（动态切换）
 * 数据源异常提醒
-* 多数据源状态监控
-* Spring Boot配置文件配置
+* 数据源状态监控
+* Spring Boot配置文件配置使用的 `yml` 配置文件
+
+### 开发计划：
+
+* SQL过滤器
+* XML格式配置文件配置（有提示）
+* Spring Boot配置文件配置 `mysplitter` 的各项参数
 
 ### 配置文件快速预览：
 
@@ -61,14 +63,14 @@ Maven:
 <dependency>
     <groupId>com.mysplitter</groupId>
     <artifactId>mysplitter</artifactId>
-    <version>0.9.0</version>
+    <version>0.9.1</version>
 </dependency>
 ```
 
 Gradle:
 
 ```markdown
-compile group: 'com.mysplitter', name: 'mysplitter', version: '0.9.0'
+compile group: 'com.mysplitter', name: 'mysplitter', version: '0.9.1'
 ```
 
 ### 2.设置数据源
@@ -293,15 +295,84 @@ public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHand
                 driverClassName: com.mysql.jdbc.Driver
     ```
 
-### 7.配置高可用
+### 7.数据源高可用
 
-// TODO
+自动检测数据源是否可用，如果数据源不可用，自动从数据源节点中剔除，默认30秒再次重试，直到数据源可用。
+
+如果需要配置重试时间间隔，请设置 `failTimeout` 参数，参考如下配置：
+
+1. 定义在common中：
+
+    ```markdown
+    mysplitter:
+      readAndWriteParser: com.mysplitter.demo.datasource.ReadAndWriteParser
+      illAlertHandler: com.mysplitter.demo.datasource.DataSourceIllAlertHandler
+      common:
+        dataSourceClass: com.alibaba.druid.pool.DruidDataSource
+        loadBalance:
+          read:
+            enabled: true
+            strategy: polling
+            failTimeout: 1m
+          write:
+            enabled: false
+    ```
+
+2. 定义在数据库节点中
+
+    ```markdown
+    mysplitter:
+      enablePasswordEncryption: true
+      readAndWriteParser: com.mysplitter.demo.datasource.ReadAndWriteParser
+      illAlertHandler: com.mysplitter.demo.datasource.DataSourceIllAlertHandler
+      common:
+        dataSourceClass: com.alibaba.druid.pool.DruidDataSource
+      databases:
+        database-a:
+          loadBalance:
+            read:
+              enabled: true
+              strategy: polling
+              failTimeout: 1m
+            write:
+              enabled: false
+          readers:
+            reader-read-slave-1:
+              configuration:
+                url: jdbc:mysql://localhost:3306/user?useSSL=false
+                username: root
+                password: UtDAi2eqmspIDSHqpoGQU5JC9kpfFeZPBhUxkPnWtNwsTEYFkTh/QAa5wyU7LDufruSYN+0WCUTE6F5X++5tDA==
+                publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKVbfAja9r0HF29S/ph/T+f6UbeNxn4giAzgxweKABRsJ2sI/MNhV8x7jTsCM15xDHKM4G++QqC1Bx0tdgG/BI0CAwEAAQ==
+                driverClassName: com.mysql.jdbc.Driver
+                maxWait: 1000
+            reader-read-slave-2:
+              configuration:
+                url: jdbc:mysql://localhost:3306/user?useSSL=false
+                username: root
+                password: Oe7fcF2TLqytAlvy37C/IWfBhNhBFXmMGceE6GRxYyjJXh3TUdmq8EvebiFb0pB1hF9aH7thnnkthFiy5n3M8Q==
+                publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMWmL+AzrbsKwfrtP/a/aQpQplNsoySxCHUQb0aJw2t8iemRtbxtxJhXmQqPMlAZdYppyK0wB48HTArD2am3/NMCAwEAAQ==
+                driverClassName: com.mysql.jdbc.Driver
+                maxWait: 1000
+          writers:
+            writer-write-master-1:
+              configuration:
+                url: jdbc:mysql://localhost:3306/user?useSSL=false
+                username: root
+                password: MAtsEynrB5qJp6oDfmae2Z2Hx1lqPwFDNMKnwUr/P7+HvYy8ZXIm6DKI5VWfLO34Bjcdy+Jsr4+/N++Bxx0Y5w==
+                publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIvm9Ez/X3VOLUGNfATqtyQsK5+TOR66uK6MvHdX89N1K8S3l3bNVB2BKiPZ1hDxZNZfYtbQNUUHKjDyV+eUtq8CAwEAAQ==
+                driverClassName: com.mysql.jdbc.Driver
+                maxWait: 1000
+    ```
 
 ### 8.配置过滤器（暂不支持）
 
-### 9.多数据源状态监控（暂不支持）
+### 9.数据源状态监控
 
-### 10.数据源密码加密
+你可以通过调用 `com.mysplitter.MySplitterDataSource` 的 `getStatus` 方法获取当前所有数据源的状态。
+
+### 10.数据源异常提醒
+
+### 11.数据源密码加密
 
 1. 执行加密命令获取私钥、公钥和加密后的密码。加密直接使用了 `com.alibaba.druid` 的加密算法以及源码。
 
