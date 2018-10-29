@@ -215,9 +215,7 @@ public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHand
 
 ### 6.配置负载均衡
 
-当读写分离，有多个读/写节点，可以通过配置负载均衡达到 `jvm` 级别的多数据源负载均衡。
-
-配置文件示例：
+当读写分离，有多个读/写节点，可以对数据源负载均衡，配置文件示例：
 
 1. 负载均衡轮询算法：
 

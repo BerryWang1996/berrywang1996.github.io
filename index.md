@@ -216,9 +216,7 @@ public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHand
 
 ### 6.Configure load balance
 
-When read and write is separated, there are multiple read/write nodes, and you can configure load balancing to achieve multi-data source load balancing of `jvm` level.
-
-Configuration file example:
+When read and write is separated, there are multiple read/write nodes, and you can configure load balancing, for example:
 
 1. Polling load balance：
 
