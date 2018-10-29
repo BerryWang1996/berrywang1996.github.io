@@ -4,8 +4,6 @@
 
 MySplitter is a lightweight read / write separation, multiple data sources, high availability, load balancing database connection middleware.
 
-### When to use
-
 When you need a program to connect two or more databases or even different types of databases; the database is configured for read-write separation, but the read operation has multiple data sources and cannot be load-balanced; hopefully the data source is not available when there is a reminder, And can switch to available data sources, let MySplitter help you!
 
 
@@ -30,7 +28,7 @@ When you need a program to connect two or more databases or even different types
 
 With simple configuration, MySplitter can manage data sources and you can easily use multiple data sources.
 
-```markdown
+```yaml
 mysplitter:
   databasesRoutingHandler: com.xxx.your.databasesRoutingHandler
   databases:
@@ -60,7 +58,7 @@ mysplitter:
 
 Maven:
 
-```markdown
+```xml
 <dependency>
     <groupId>com.mysplitter</groupId>
     <artifactId>mysplitter</artifactId>
@@ -96,7 +94,7 @@ MySplitter reads the `mysplitter.yml` configuration file by default. Please make
 
 Example:
 
-```markdown
+```yaml
 mysplitter:
   databases:
     database-a: #You can customize the name of the database
@@ -124,14 +122,14 @@ When you do not configure a read/write parser, `com.mysplitter.DefaultReadAndWri
 
 Configuration file example:
 
-```markdown
+```yaml
 mysplitter:
   readAndWriteParser: com.xxx.MyReadAndWriteParser
 ```
 
 Java example:
 
-```markdown
+```java
 public class MyReadAndWriteParser implements MySplitterReadAndWriteParserAdvise {
 
     /**
@@ -155,7 +153,7 @@ If it is a data source for multiple databases, you need to define the data sourc
 
 Configuration file example:
 
-```markdown
+```yaml
 mysplitter:
   databasesRoutingHandler: com.xxx.MyDatabasesRoutingHandler
   common:
@@ -188,7 +186,7 @@ mysplitter:
 
 Java example:
 
-```markdown
+```java
 public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHandlerAdvise {
 
     /**
@@ -224,7 +222,7 @@ Configuration file example:
 
 1. Polling load balance：
 
-    ```markdown
+    ```yaml
     mysplitter:
       common:
         dataSourceClass: com.zaxxer.hikari.HikariDataSource
@@ -260,7 +258,7 @@ Configuration file example:
     
 2. Random weight load balance：
 
-    ```markdown
+    ```yaml
     mysplitter:
       common:
         dataSourceClass: com.zaxxer.hikari.HikariDataSource
@@ -304,7 +302,7 @@ If you need to configure the retry interval, set the `failTimeout` parameter. Re
 
 1. define in "common":
 
-    ```markdown
+    ```yaml
     mysplitter:
       readAndWriteParser: com.mysplitter.demo.datasource.ReadAndWriteParser
       illAlertHandler: com.mysplitter.demo.datasource.DataSourceIllAlertHandler
@@ -321,7 +319,7 @@ If you need to configure the retry interval, set the `failTimeout` parameter. Re
     
 2. define in "database node":
 
-    ```markdown
+    ```yaml
     mysplitter:
       enablePasswordEncryption: true
       readAndWriteParser: com.mysplitter.demo.datasource.ReadAndWriteParser
@@ -373,6 +371,13 @@ You can get the status of all current data sources by calling the `getStatus` me
 
 ### 10.Configure data source exception alerter
 
+Create a class and implement `com.mysplitter.advise.DataSourceIllAlerterAdvise` and configure it in the configuration file:
+
+```yaml
+mysplitter:
+  illAlertHandler: com.mysplitter.demo.datasource.DataSourceIllAlertHandler
+```
+
 ### 11.Encrypt data sources password
 
 1. Execute the encryption command to obtain the private key, public key, and encrypted password. Encryption directly uses the encryption algorithm of `com.alibaba.druid` and the source code.
@@ -385,7 +390,7 @@ You can get the status of all current data sources by calling the `getStatus` me
 
    Here is an example taken with the configuration in the quick preview of the configuration file in the document:
    
-   ```markdown
+   ```yaml
    mysplitter:
      enablePasswordEncryption: true
      databasesRoutingHandler: com.xxx.your.databasesRoutingHandler

@@ -4,8 +4,6 @@
 
 MySplitter 是轻量级的读/写分离，多数据源，高可用性，负载均衡数据库连接中间件。
 
-### 使用场景
-
 当你需要一个程序连接2个或者更多的数据库，甚至是不同类型的数据库；数据库配置了读写分离，但是读操作有多个数据源且无法负载均衡；希望数据源不可使用时有提醒，并且可以切换到可用的数据源，那就让 MySplitter 来帮助你吧！
 
 ### 当前特性
@@ -29,7 +27,7 @@ MySplitter 是轻量级的读/写分离，多数据源，高可用性，负载�
 
 只需进行简单的配置，就可以让 MySplitter 管理数据源，你就可以轻松地使用多数据源了。
 
-```markdown
+```yaml
 mysplitter:
   databasesRoutingHandler: com.xxx.your.databasesRoutingHandler
   databases:
@@ -59,7 +57,7 @@ mysplitter:
 
 Maven:
 
-```markdown
+```xml
 <dependency>
     <groupId>com.mysplitter</groupId>
     <artifactId>mysplitter</artifactId>
@@ -95,7 +93,7 @@ MySplitter 默认读取 `mysplitter.yml` 配置文件。请确该文件在项目
 
 下面将演示一个读写分离的多数据源配置：
 
-```markdown
+```yaml
 mysplitter:
   databases:
     database-a: # 可以自定义数据库的名称
@@ -123,14 +121,14 @@ mysplitter:
 
 配置文件示例：
 
-```markdown
+```yaml
 mysplitter:
   readAndWriteParser: com.xxx.MyReadAndWriteParser
 ```
 
 Java代码示例：
 
-```markdown
+```java
 public class MyReadAndWriteParser implements MySplitterReadAndWriteParserAdvise {
 
     /**
@@ -154,7 +152,7 @@ public class MyReadAndWriteParser implements MySplitterReadAndWriteParserAdvise 
 
 配置文件示例：
 
-```markdown
+```yaml
 mysplitter:
   databasesRoutingHandler: com.xxx.MyDatabasesRoutingHandler
   common:
@@ -187,7 +185,7 @@ mysplitter:
 
 Java代码示例：
 
-```markdown
+```java
 public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHandlerAdvise {
 
     /**
@@ -223,7 +221,7 @@ public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHand
 
 1. 负载均衡轮询算法：
 
-    ```markdown
+    ```yaml
     mysplitter:
       common:
         dataSourceClass: com.zaxxer.hikari.HikariDataSource
@@ -259,7 +257,7 @@ public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHand
 
 2. 负载均衡随机权重算法：
 
-    ```markdown
+    ```yaml
     mysplitter:
       common:
         dataSourceClass: com.zaxxer.hikari.HikariDataSource
@@ -303,7 +301,7 @@ public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHand
 
 1. 定义在common中：
 
-    ```markdown
+    ```yaml
     mysplitter:
       readAndWriteParser: com.mysplitter.demo.datasource.ReadAndWriteParser
       illAlertHandler: com.mysplitter.demo.datasource.DataSourceIllAlertHandler
@@ -320,7 +318,7 @@ public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHand
 
 2. 定义在数据库节点中
 
-    ```markdown
+    ```yaml
     mysplitter:
       enablePasswordEncryption: true
       readAndWriteParser: com.mysplitter.demo.datasource.ReadAndWriteParser
@@ -372,6 +370,13 @@ public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHand
 
 ### 10.数据源异常提醒
 
+创建一个类并实现 `com.mysplitter.advise.DataSourceIllAlerterAdvise`，并在配置文件中进行配置：
+
+```yaml
+mysplitter:
+  illAlertHandler: com.mysplitter.demo.datasource.DataSourceIllAlertHandler
+```
+
 ### 11.数据源密码加密
 
 1. 执行加密命令获取私钥、公钥和加密后的密码。加密直接使用了 `com.alibaba.druid` 的加密算法以及源码。
@@ -384,7 +389,7 @@ public class MyDatabasesRoutingHandler implements MySplitterDatabasesRoutingHand
 
    以文档中配置文件快速预览中的配置进行示例：
    
-   ```markdown
+   ```yaml
    mysplitter:
      enablePasswordEncryption: true
      databasesRoutingHandler: com.xxx.your.databasesRoutingHandler
