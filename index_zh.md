@@ -55,21 +55,41 @@ mysplitter:
 
 ### 1.导入依赖
 
-Maven:
+1. 普通项目
 
-```xml
-<dependency>
-    <groupId>com.mysplitter</groupId>
-    <artifactId>mysplitter</artifactId>
-    <version>0.9.1</version>
-</dependency>
-```
+    Maven:
+    
+    ```xml
+    <dependency>
+        <groupId>com.mysplitter</groupId>
+        <artifactId>mysplitter</artifactId>
+        <version>0.9.1</version>
+    </dependency>
+    ```
+    
+    Gradle:
+    
+    ```markdown
+    compile group: 'com.mysplitter', name: 'mysplitter', version: '0.9.1'
+    ```
+    
+2. Spring Boot 项目
 
-Gradle:
-
-```markdown
-compile group: 'com.mysplitter', name: 'mysplitter', version: '0.9.1'
-```
+    Maven:
+    
+    ```xml
+    <dependency>
+        <groupId>com.mysplitter</groupId>
+        <artifactId>mysplitter-spring-boot-starter</artifactId>
+        <version>0.9.1</version>
+    </dependency>
+    ```
+    
+    Gradle:
+    
+    ```markdown
+    compile group: 'com.mysplitter', name: 'mysplitter-spring-boot-starter', version: '0.9.1'
+    ```
 
 ### 2.设置数据源
 
